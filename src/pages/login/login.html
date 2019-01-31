@@ -1,0 +1,103 @@
+
+
+<ion-content class="bg-style" padding>
+    <img src="../../assets/imgs/perfil.png" width="100px" height="100px">
+<br><br><br><br><br>
+<div *ngIf="crearCuenta == false">
+    <ion-list>
+      <form>
+        <ion-item id="rounded">
+          <ion-label>Email</ion-label>
+          <ion-input [(ngModel)]="user.email" name="email" type="text"  autocapitalize="off" required> </ion-input>
+        </ion-item> <br>
+
+        <ion-item id="rounded">
+          <ion-label>Contraseña</ion-label>
+          <ion-input [(ngModel)]="user.password" name="password" type="password" required> </ion-input>
+        </ion-item>
+        <div padding>
+
+        <button full color="azul"  ion-button icon-start (click)="login()" type="submit">
+          <ion-icon name="home"></ion-icon>
+            Ingresar
+        </button> <br>
+
+        <button  small full color="azul"  ion-button icon-start (click)="formularioCrear()" type="submit">
+            <ion-icon name="home"></ion-icon>
+              Crear cuenta
+        </button>
+          
+        </div>
+      </form>
+    </ion-list>
+  </div>
+
+  
+
+  <div *ngIf="crearCuenta == true">
+      <ion-list>
+        <form>
+          <ion-item id="rounded">
+            <ion-label>Nombre</ion-label>
+            <ion-input [(ngModel)]="user.nombre" name="nombre" type="text"  autocapitalize="off" required> </ion-input>
+          </ion-item> <br>
+
+          <ion-item id="rounded">
+              <ion-label>Rut/DNI</ion-label>
+              <ion-input [(ngModel)]="user.rut" name="rut" type="text"  autocapitalize="off" required> </ion-input>
+          </ion-item> <br>
+
+          <ion-item id="rounded">
+            <ion-label>Email</ion-label>
+            <ion-input [(ngModel)]="user.email" name="email" type="text"  autocapitalize="off" required> </ion-input>
+          </ion-item> <br>
+  
+          <ion-item id="rounded">
+            <ion-label>Contraseña</ion-label>
+            <ion-input [(ngModel)]="user.password" name="password" type="password" required> </ion-input>
+          </ion-item> <br>
+
+          <ion-item id="rounded">
+            <ion-label>Repetir contraseña</ion-label>
+              <ion-input [(ngModel)]="user.password2" name="password2" type="password" required> </ion-input>
+          </ion-item> <br>
+  
+          <button   full color="azul"  ion-button icon-start (click)="signin()" type="submit">
+            <ion-icon name="home"></ion-icon>
+               Crear cuenta
+          </button>
+            
+        </form>
+      </ion-list>
+    </div>
+<!-- 
+    <ion-list *ngIf="crearCuenta == true">
+        <form>
+          <ion-item id="rounded">
+            <ion-label>Email</ion-label>
+            <ion-input [(ngModel)]="user.email" name="email" type="text"  autocapitalize="off" required> </ion-input>
+          </ion-item> <br>
+  
+          <ion-item id="rounded">
+            <ion-label>Contraseña</ion-label>
+            <ion-input [(ngModel)]="user.password" name="password" type="password" required> </ion-input>
+          </ion-item>
+          <div padding>
+
+          <ion-item id="rounded">
+            <ion-label>Repetir contraseña</ion-label>
+            <ion-input [(ngModel)]="user.password2" name="password2" type="password" required> </ion-input>
+          </ion-item>
+          <div padding>
+  
+          <button  small full color="azul"  ion-button icon-start (click)="signin()" type="submit">
+              <ion-icon name="home"></ion-icon>
+                Crear cuenta
+          </button>
+            
+          </div>
+        </form>
+      </ion-list>
+
+    -->
+</ion-content>
