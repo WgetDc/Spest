@@ -14,15 +14,12 @@
     
   
     <ion-toolbar color="azul" no-border-top>
-      <ion-segment [(ngModel)]="pet">
-        <ion-segment-button value="puppies">
-          <div>Inicio</div>
+      <ion-segment [(ngModel)]="inicioAula">
+        <ion-segment-button value="buscar">
+          Ingresar Aula
         </ion-segment-button>
-        <ion-segment-button value="kittens">
-          Iniciar seguimiento
-        </ion-segment-button>
-        <ion-segment-button value="ducklings">
-          Buscar
+        <ion-segment-button value="crear">
+          Crear aula
         </ion-segment-button>
       </ion-segment>
     </ion-toolbar>
@@ -30,66 +27,64 @@
 
 
 <ion-content padding>
-<h6>Iniciar seguimiento nuevo estudiante</h6>
-    <ion-list *ngIf="nuevoCurso == false">
+  <!-- Este me tira el correo
+  {{datosUsuario[1]}}
+  -->
 
-        <ion-item>        
-            <ion-label> <ion-icon name="person"></ion-icon>&nbsp;Estudiante</ion-label>
-            <ion-input clearInput type="text"></ion-input>
-        </ion-item>
+    <div [ngSwitch]="inicioAula">
+        <ion-list *ngSwitchCase="'buscar'">
+            
+            <ion-chip color="azul">
+                <ion-icon color="azul" name="school"></ion-icon>
+                <ion-label>Mis aulas virtuales</ion-label>
+            </ion-chip>            
 
-        <ion-item>        
-            <ion-label> <ion-icon name="school"></ion-icon>&nbsp;Curso</ion-label>
-            <ion-select [(ngModel)]="cursos">
-                <ion-option value="nuevo">Añadir nuevo curso</ion-option>
-              </ion-select>
-        </ion-item>
+            <ion-card *ngFor="let aula of misAulas | async">
+                <ion-item>
+                  <ion-badge color="morado">{{aula.Asignatura}}</ion-badge>
+                  <h6>Codigo: {{aula.CodigoAula}}</h6>
+                  <button small (click)="irAlAula(aula.CodigoAula,datosUsuario[2])" color="azul" ion-button item-end>Acceder</button>
+                </ion-item>   
+              </ion-card>
 
-        <ion-item end>
-            <button (click)="agregarNuevoCurso()" color="azul" small item-end end ion-button icon-start>
-                <ion-icon name="school"></ion-icon>
-                Añadir curso
-            </button>
-        </ion-item>
-
-        <ion-item>
-            <button block color="azul" small item-end end ion-button icon-start>
-                <ion-icon name="person-add"></ion-icon>
-                Añadir
-            </button> 
-        </ion-item>
-        
-      
-      </ion-list>
-
-      <ion-list *ngIf="nuevoCurso == true">
-
-          <ion-item>        
-              <ion-label> <ion-icon name="school"></ion-icon>&nbsp;Nombre curso</ion-label>
-              <ion-input clearInput type="text"></ion-input>
-          </ion-item>
-  
-          <ion-item end>
-              <button color="azul" small item-end end ion-button icon-start>
-                  <ion-icon name="school"></ion-icon>
-                  Añadir curso
-              </button>
-          </ion-item>
+              <ion-item>        
+                  <ion-label> <ion-icon name="barcode"></ion-icon>&nbsp;Codigo aula</ion-label>
+                  <ion-input [(ngModel)]="codigo" clearInput type="text"></ion-input>
+                </ion-item>
+              
+              <ion-item>
+                  <button color="azul" ion-button default block (click)="ingresarAula()">Ingresar nueva aula</button>
+              </ion-item> <br>
 
         </ion-list>
       
+        <ion-list *ngSwitchCase="'crear'">
+            <ion-item>        
+                <ion-label> <ion-icon name="book"></ion-icon>&nbsp;Asignatura</ion-label>
+                <ion-input [(ngModel)]="asignatura" clear Input type="text"></ion-input>
+              </ion-item>
 
-<h1>{{email}}</h1> <br>
+              <ion-item>        
+                  <ion-label> <ion-icon name="school"></ion-icon>&nbsp;Curso</ion-label>
+                  <ion-input [(ngModel)]="curso" clear Input type="text"></ion-input>
+                </ion-item>
 
+                <ion-item>        
+                    <ion-label> <ion-icon name="barcode"></ion-icon>&nbsp;Codigo del aula</ion-label>
+                    <ion-input [(ngModel)]="codigo" clear Input type="text"></ion-input>
+                  </ion-item>
+            
+              <ion-item>
+                <button ion-button color="azul" default block (click)="crearAula()">Crear aula virtual</button>
+              </ion-item>
+        </ion-list>
+      </div>
 
-
-
-<ion-fab mini  right bottom>
-    <button mini small ion-fab color="dark"><ion-icon name="arrow-dropup"></ion-icon></button>
-    <ion-fab-list side="top">
-      <button (click)="logOut()" ion-fab><ion-icon name="log-out"></ion-icon></button>
-    </ion-fab-list>
-  </ion-fab>
-
+  <ion-fab right bottom>
+      <button ion-fab mini color="light"><ion-icon name="settings"></ion-icon></button>
+      <ion-fab-list side="top">
+        <button (click)="logOut()" ion-fab><ion-icon name="log-out"></ion-icon></button>
+      </ion-fab-list>
+    </ion-fab>
 </ion-content>
 

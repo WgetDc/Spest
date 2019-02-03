@@ -61,6 +61,14 @@
             <ion-label>Repetir contraseña</ion-label>
               <ion-input [(ngModel)]="user.password2" name="password2" type="password" required> </ion-input>
           </ion-item> <br>
+
+          <ion-item id="rounded">
+              <ion-label>Perfil</ion-label>
+              <ion-select [(ngModel)]="user.perfilUsuario" name="perfil">
+                <ion-option value="Profesor">Profesor</ion-option>
+                <ion-option value="Estudiante">Estudiante</ion-option>
+              </ion-select>
+            </ion-item> <br> {{perfil}}
   
           <button   full color="azul"  ion-button icon-start (click)="signin()" type="submit">
             <ion-icon name="home"></ion-icon>

@@ -10,6 +10,7 @@ export class AuthProvider {
   Usuario:any;
   UserId:any;
   nombre:any;
+  
   constructor(private afAuth :  AngularFireAuth, private afDB : AngularFireDatabase) {
     console.log('Hello AuthProvider Provider');
   }
@@ -24,7 +25,7 @@ export class AuthProvider {
         if (user != null) {
           correo = user.email;
           uid = user.uid;  
-          this.afDB.database.ref('Usuarios/'+uid).set({email: correo, nombre: nombre, rut: rut });
+          this.afDB.database.ref('Usuarios/'+uid).set({email: correo, nombre: nombre, rut: rut});
         }
         })
         .catch(err=>Promise.reject(err))

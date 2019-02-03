@@ -15,8 +15,9 @@ import { AuthProvider } from '../../providers/auth/auth';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  user= { email : '', password : '', password2 : '', nombre: '', rut : ''};
+  user= { email : '', password : '', password2 : '', nombre: '', rut : '', perfilUsuario: ''};
   crearCuenta = false;
+  perfil:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public auth : AuthProvider,
     public alertCtrl : AlertController) {
   }

@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-navbar color="azul">
+    <ion-toolbar color="azul">
+      <ion-segment [(ngModel)]="AulaSegment">
+        <ion-segment-button value="Mensajes">
+          Mensajes
+        </ion-segment-button>
+        <ion-segment-button value="Biblioteca">
+          Biblioteca
+        </ion-segment-button>
+      </ion-segment>
+      <ion-buttons end>
+        <button (click)="activarSubirArchivo()" ion-button icon-only>
+          <ion-icon name="folder"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-navbar>
+  </ion-header>
+ 
+
+
+<ion-content >
+
+    <div [ngSwitch]="AulaSegment">
+        <ion-list *ngSwitchCase="'Mensajes'">
+
+          <div>
+            <ion-card *ngFor="let mensaje of mensajesRecuperados | async">
+                <ion-item>
+                  <ion-avatar item-start>
+                    <img src="../../assets/imgs/avatar.jpg">
+                  </ion-avatar>
+                  <h2>{{mensaje.Nombre}}</h2>
+                  <p>{{mensaje.Fecha}}</p>
+                </ion-item>
+              
+                <ion-card-content>
+                  <p>{{mensaje.Mensaje}}</p>
+                </ion-card-content>      
+              </ion-card>
+            </div>
+
+        </ion-list>
+      
+        <ion-list *ngSwitchCase="'Biblioteca'">
+
+          
+          <div padding *ngIf="subir == true">
+              <ion-item>        
+                  <ion-label> <ion-icon name="document"></ion-icon>&nbsp;Nombre archivo</ion-label>
+                  <ion-input [(ngModel)]="nombreArchivo" clear Input type="text"></ion-input>
+                </ion-item>
+
+              <ion-item>        
+                  <ion-label> <ion-icon name="list-box"></ion-icon>&nbsp;Descripción</ion-label>
+                  <ion-input [(ngModel)]="descripcionArchivo" clear Input type="text"></ion-input>
+              </ion-item>
+
+              <ion-item>        
+                  <ion-label> <ion-icon name="link"></ion-icon>&nbsp;Link de descarga</ion-label>
+                  <ion-input [(ngModel)]="linkArchivo" clear Input type="text"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <button ion-button color="azul" block default (click)="subirArchivo()">Subir archivo</button>
+              </ion-item>
+          </div>
+         
+          <div *ngIf="subir == false">
+            <ion-list>
+                <ion-item-sliding *ngFor="let archivo of archivosRecuperados | async">
+                  <ion-item text-wrap>
+                    <h4>{{archivo.NombreArchivo}}</h4>
+                    <p>{{archivo.DescripcionArchivo}}</p>
+                  </ion-item>
+                  <ion-item-options side="right">
+                    <button ion-button color="azul">
+                      <ion-icon name="download"></ion-icon>
+                      <a href="{{archivo.linkArchivo}}">Descargar</a>
+                    </button>
+                  </ion-item-options>
+                </ion-item-sliding>
+              </ion-list>
+          </div>
+                
+        </ion-list>
+    </div>
+
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar color="azul">
+      <ion-input [(ngModel)]="mensaje" placeholder="Escribir mensaje"></ion-input>
+      <ion-buttons end>
+        <button (click)="enviarMensaje()" ion-button icon-end color="royal">
+          <ion-icon name="send"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
