@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { AulasProvider } from '../../providers/aulas/aulas';
 import { Observable } from 'rxjs/Observable';
 import { Content } from 'ionic-angular';
+import * as firebase from 'firebase/app';
 
 /**
  * Generated class for the AulaPage page.
@@ -22,23 +23,27 @@ export class AulaPage {
   mensaje:string;
   mensajesRecuperados:Observable<any[]>;
   archivosRecuperados:Observable<any[]>;
+  usuariosRecuperados:Observable<any[]>;
   nombreUsuario:string;
   AulaSegment = "Mensajes";
   subir = false;
   nombreArchivo:string;
   descripcionArchivo:string;
   linkArchivo:string;  
+  perfilUsuario:string;
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public aulas: AulasProvider, public toastCtrl: ToastController) {
     console.log(this.navParams.get("CodigoAula"));
     this.codigoAula = this.navParams.get("CodigoAula");
     this.nombreUsuario = this.navParams.get("NombreUsuario");
+    this.perfilUsuario = this.navParams.get("PerfilUsuario");
     this.mensajesRecuperados = this.aulas.recuperarMensajes(this.codigoAula);
     this.archivosRecuperados = this.aulas.recuperarArchivos(this.codigoAula);
   }
 
-  ionViewDidLoad() {
+  ionViewDidLoad() {    
+    this.usuariosRecuperados = this.aulas.recuperarUsuarios(this.codigoAula);
     setTimeout(() => {
       this.content.scrollToBottom(300);
    }, 1000);
@@ -67,5 +72,15 @@ export class AulaPage {
     });
     toast.present();
   }
+
+  cambiarVistaEstadisticas(){
+    this.AulaSegment ="Estadisticas";
+  }
+
+  subirDeNivel(Uid, Nivel, Ataque){
+    this.aulas.subirDeNivel(Uid,Nivel,Ataque,this.codigoAula);
+  }
+
+
 
 }

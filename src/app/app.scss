@@ -14,8 +14,14 @@ ion-icon {
     &[class*="sword"] {
       mask-image: url(../assets/icon/sword.svg);
     }
-    &[class*="custom-spades"] {
-      mask-image: url(../assets/spades.svg);
+    &[class*="shield"] {
+      mask-image: url(../assets/icon/shield.svg);
+    }
+    &[class*="rocket"] {
+      mask-image: url(../assets/icon/rocket.svg);
+    }
+    &[class*="castle"] {
+      mask-image: url(../assets/icon/castle.svg);
     }
   
   }

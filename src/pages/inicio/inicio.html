@@ -3,7 +3,7 @@
 <ion-header>
     <ion-navbar color="azul" no-border-bottom>
       <ion-title>
-        Bienvenido {{datosUsuario[1]}}
+        Bienvenido {{datosUsuario[2]}}
       </ion-title>
       <ion-buttons end>
           <button menuToggle ion-button icon-only>
@@ -43,7 +43,7 @@
                 <ion-item>
                   <ion-badge color="morado">{{aula.Asignatura}}</ion-badge>
                   <h6>Codigo: {{aula.CodigoAula}}</h6>
-                  <button small (click)="irAlAula(aula.CodigoAula,datosUsuario[2])" color="azul" ion-button item-end>Acceder</button>
+                  <button small (click)="irAlAula(aula.CodigoAula,datosUsuario[2],datosUsuario[3])" color="azul" ion-button item-end>Acceder</button>
                 </ion-item>   
               </ion-card>
 

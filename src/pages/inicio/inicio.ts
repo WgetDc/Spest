@@ -25,12 +25,15 @@ export class InicioPage {
   //
   misAulas:Observable<any[]>;
 
+ 
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public auth : AuthProvider, 
     public aulas: AulasProvider, public toastCtrl: ToastController) {
     /*this.datosUsuarioActual = this.auth.datosUsuarioActual().subscribe(usuario=>{
       this.datosUsuarioActual = usuario;
     })
     */
+   
    
    this.user = this.auth.datosUsuarioActual();
    this.auth.datosUsuarioActual().subscribe(val => console.log(val));
@@ -71,8 +74,8 @@ export class InicioPage {
     toast.present();
   }
 
-  irAlAula(codigoAula, nombreUsuario){
-    this.navCtrl.push('AulaPage',{CodigoAula:codigoAula, NombreUsuario:nombreUsuario});
+  irAlAula(codigoAula, nombreUsuario, perfilUsuario){
+    this.navCtrl.push('AulaPage',{CodigoAula:codigoAula, NombreUsuario:nombreUsuario, PerfilUsuario:perfilUsuario});
   }
 
 }

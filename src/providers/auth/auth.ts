@@ -16,7 +16,7 @@ export class AuthProvider {
   }
 
       // Registro de usuario
-      registerUser(email:string, password:string, nombre:string, rut:string){
+      registerUser(email:string, password:string, nombre:string, perfil:string){
         return this.afAuth.auth.createUserWithEmailAndPassword( email, password)
         .then((res)=>{
          // El usuario se ha creado correctamente.
@@ -25,7 +25,7 @@ export class AuthProvider {
         if (user != null) {
           correo = user.email;
           uid = user.uid;  
-          this.afDB.database.ref('Usuarios/'+uid).set({email: correo, nombre: nombre, rut: rut});
+          this.afDB.database.ref('Usuarios/'+uid).set({email: correo, nombre: nombre, rut: perfil});
         }
         })
         .catch(err=>Promise.reject(err))

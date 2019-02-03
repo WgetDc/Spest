@@ -21,6 +21,9 @@
 
 
 <ion-content >
+    <ion-fab  *ngIf="perfilUsuario == 'Profesor'" right middle>
+        <button ion-fab (click)="cambiarVistaEstadisticas()" mini color="danger"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
 
     <div [ngSwitch]="AulaSegment">
         <ion-list *ngSwitchCase="'Mensajes'">
@@ -33,15 +36,15 @@
                   </ion-avatar>
                   <h2>{{mensaje.Nombre}}</h2>
                   <p>{{mensaje.Fecha}}</p>
-                  <button outline color="secondary" item-end ion-button icon-start><ion-icon name="custom-sword"></ion-icon>84</button>
+                  <button outline color="secondary" item-end ion-button icon-start><ion-icon name="custom-one-up"></ion-icon>{{mensaje.Nivel}}</button>
+                  <button outline color="danger" item-end ion-button icon-start><ion-icon name="custom-sword"></ion-icon>{{mensaje.Ataque}}</button>
                 </ion-item>
-              
+                
                 <ion-card-content>
                   <p>{{mensaje.Mensaje}}</p>                
                 </ion-card-content>      
               </ion-card>
             </div>
-
         </ion-list>
       
         <ion-list *ngSwitchCase="'Biblioteca'">
@@ -86,6 +89,24 @@
           </div>
                 
         </ion-list>
+
+        <ion-list padding *ngSwitchCase="'Estadisticas'">
+          
+                <div *ngFor="let user of usuariosRecuperados | async">
+                    <ion-card>
+                        <ion-item>
+                          <h2>{{user.NombreUsuario}}</h2>
+                          <button outline color="secondary" item-end ion-button icon-start><ion-icon name="custom-one-up"></ion-icon>{{user.Nivel}}</button>
+                          <button outline color="danger" item-end ion-button icon-start><ion-icon name="custom-sword"></ion-icon>{{user.Ataque}}</button>
+                        </ion-item>
+                        
+                        <ion-card-content>   
+                            <button (click)="subirDeNivel(user.IdUsuario, user.Nivel, user.Ataque)" block small outline color="danger" item-end ion-button icon-start><ion-icon name="custom-rocket"></ion-icon>Subir de nivel</button>           
+                        </ion-card-content>      
+                      </ion-card>
+                    </div>
+        </ion-list>
+
     </div>
 
 </ion-content>

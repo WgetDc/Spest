@@ -29,7 +29,7 @@ export class AulasProvider {
   ingresarAula(codigo:string){
     var user = firebase.auth().currentUser;
     let uid = user.uid; 
-    this.afDB.database.ref('Aula/'+ codigo + '/Usuarios' + '/' + uid).set({Pertenece:"Si"});
+    this.afDB.database.ref('Aula/'+ codigo + '/Usuarios' + '/' + uid).set({Pertenece:"Si", Nivel:1, Ataque:6, IdUsuario:uid});
 
     // Test for the existence of certain keys within a DataSnapshot / Recupera valores espesificos de una ruta de realtime database
     var ref = firebase.database().ref('Aula/');
@@ -44,6 +44,13 @@ export class AulasProvider {
         firebase.database().ref('Usuarios/' + uid + '/MisAulas/' + codigo).set({CodigoAula : codigo, Asignatura: asignatura, Curso: curso}); //Ingresamos Codigo, asignatura y curso, en los cursos de cada usuario para que aparescan los cursos disponibles en el inicio
       });    
    // this.afDB.database.ref('Usuarios/' + uid + '/MisAulas/' + codigo).set({CodigoAula : codigo, Asignatura: asignatura, Curso: curso});
+      var ref2 = firebase.database().ref('Usuarios/');  //Aqui nos dedicamos solo a obtener el nombre de usuario para poder grabarlo y obtenerlo a la hora de modifica las estadisticas
+      ref2.once("value")
+        .then(function(snapshot){
+          var nombre = snapshot.child(uid).child("nombre").val();
+          console.log(nombre);
+          firebase.database().ref('Aula/'+ codigo + '/Usuarios' + '/' + uid).set({Pertenece:"Si", Nivel:1, Ataque:6, IdUsuario:uid, NombreUsuario:nombre});
+        });
   }
 
   misAulas(){
@@ -57,12 +64,24 @@ export class AulasProvider {
     var fecha = hoy.getDate() + "/" + (hoy.getMonth() + 1) + "/" + hoy.getFullYear();
     var hora = hoy.getHours() + ":" + hoy.getMinutes();
     var fechaYHora = fecha + " " + hora;
+    
 
     var idMensaje = Date.now();
 
     var user = firebase.auth().currentUser;    
     let uid = user.uid; 
     this.afDB.database.ref('Aula/'+ codigo + '/Mensajes' + '/' + idMensaje).set({Usuario:uid, Nombre:nombreUsuario, Mensaje:mensaje, Fecha: fechaYHora});
+    
+    var ref2 = firebase.database().ref('Aula/');  //Aqui nos dedicamos solo a obtener el nombre de usuario para poder grabarlo y obtenerlo a la hora de modifica las estadisticas
+      ref2.once("value")
+        .then(function(snapshot){
+          var ataque = snapshot.child(codigo + "/Usuarios/" + uid).child("Ataque").val();
+          var nivel = snapshot.child(codigo + "/Usuarios/" + uid).child("Nivel").val();
+          console.log("El ataque es :" + ataque);
+          console.log("El nivel es: " +nivel);
+          firebase.database().ref('Aula/'+ codigo + '/Mensajes' + '/' + idMensaje).set({Usuario:uid, Nombre:nombreUsuario, Mensaje:mensaje, Fecha: fechaYHora, Ataque: ataque, Nivel:nivel});
+
+        });
   }
 
   recuperarMensajes(codigo:string){
@@ -86,5 +105,27 @@ export class AulasProvider {
   recuperarArchivos(codigo:string){
     return this.afDB.list('Aula/' + codigo + '/Archivos/').valueChanges();
   }
+
+  recuperarUsuarios(codigo:string){
+    return this.afDB.list('Aula/' + codigo + '/Usuarios/').valueChanges();
+  }
+
+  subirDeNivel(uid, nivel, ataque, codigo){
+    let nuevoNivel = nivel + 1;
+    let nuevoAtaque = ataque + (Math.floor((Math.random() * (7-2))+2));
+    this.afDB.database.ref('Aula/'+ codigo + '/Usuarios/' + uid + "/").update({Nivel:nuevoNivel, Ataque:nuevoAtaque});
+  }
+
+/*  editarEstadisticas(){
+    var ref = firebase.database().ref('Usuarios/');
+    ref.once("value")
+      .then(function(snapshot) {
+        var user = firebase.auth().currentUser;    
+        let uid = user.uid;
+        var perfil = snapshot.child(uid).child("rut").val();
+        console.log(perfil);      
+      });  
+  }
+  */
 
 }
