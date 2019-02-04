@@ -11,7 +11,7 @@
       </ion-segment>
       <ion-buttons end>
         <button (click)="activarSubirArchivo()" ion-button icon-only>
-          <ion-icon name="folder"></ion-icon>
+          <ion-icon name="custom-folder-upload"></ion-icon>
         </button>
       </ion-buttons>
     </ion-toolbar>
@@ -90,13 +90,17 @@
          
           <div *ngIf="subir == false">
             <ion-list>
+              <ion-item>
+                  <button outline color="secondary" block ion-button large><ion-icon name="custom-slideleft"></ion-icon>Desliza para descargar</button>
+              </ion-item>
                 <ion-item-sliding *ngFor="let archivo of archivosRecuperados | async">
                   <ion-item text-wrap>
                     <h4>{{archivo.NombreArchivo}}</h4>
                     <p>{{archivo.DescripcionArchivo}}</p>
+                    <button outline color="secondary" item-end ion-button icon-start><ion-icon name="custom-slideleft"></ion-icon></button>
                   </ion-item>
                   <ion-item-options side="right">
-                    <button ion-button color="azul">
+                    <button outline ion-button color="azul">
                       <ion-icon name="download"></ion-icon>
                       <a href="{{archivo.linkArchivo}}">Descargar</a>
                     </button>
@@ -107,8 +111,8 @@
                 
         </ion-list>
 
-        <ion-list padding *ngSwitchCase="'Estadisticas'">
-          lamo
+        <ion-list *ngSwitchCase="'Estadisticas'">
+          
                 <div *ngFor="let user of usuariosRecuperados | async">
                     <ion-card>
                         <ion-item>

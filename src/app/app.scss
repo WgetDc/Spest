@@ -23,5 +23,11 @@ ion-icon {
     &[class*="castle"] {
       mask-image: url(../assets/icon/castle.svg);
     }
+    &[class*="slideleft"] {
+      mask-image: url(../assets/icon/slideleft.svg);
+    }
+    &[class*="folder-upload"] {
+      mask-image: url(../assets/icon/folder-upload.svg);
+    }
   
   }

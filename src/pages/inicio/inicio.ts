@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Observable } from 'rxjs/Observable';
 import { AulasProvider } from '../../providers/aulas/aulas';
@@ -28,7 +28,7 @@ export class InicioPage {
  
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public auth : AuthProvider, 
-    public aulas: AulasProvider, public toastCtrl: ToastController) {
+    public aulas: AulasProvider, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     /*this.datosUsuarioActual = this.auth.datosUsuarioActual().subscribe(usuario=>{
       this.datosUsuarioActual = usuario;
     })
@@ -53,15 +53,26 @@ export class InicioPage {
   }
 
   crearAula(){
+    this.codigo = Date.now().toString();
     this.aulas.crearAula(this.asignatura, this.curso, this.codigo);
     this.asignatura = "";
     this.curso = "";
     const toast = this.toastCtrl.create({
       message: 'Aula virtual creada exitosamente ٩ʕ•͡×•ʔ۶',
-      duration: 3000
+      duration: 10000
     });
     toast.present();
+
+    
+    const alert = this.alertCtrl.create({
+      title: 'Atención!',
+      subTitle: 'Aula virtual creada con exito. El codigo para acceder a tu aula es: ' + this.codigo + ' Envia este codigo a tus estudiantes para que puedan acceder a tu aula.',
+      buttons: ['Entendido']
+    });
+    alert.present();
+    
     this.inicioAula = "buscar";
+    this.ingresarAula();
   }
 
   ingresarAula(){
@@ -69,7 +80,7 @@ export class InicioPage {
     this.codigo = "";
     const toast = this.toastCtrl.create({
       message: 'Aula virtual ingresada correctamente ٩ʕ•͡×•ʔ۶',
-      duration: 3000
+      duration: 5000
     });
     toast.present();
   }
