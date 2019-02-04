@@ -42,8 +42,9 @@
             <ion-card *ngFor="let aula of misAulas | async">
                 <ion-item>
                   <ion-badge color="morado">{{aula.Asignatura}}</ion-badge>
+                  <ion-badge color="morado">{{aula.Curso}}</ion-badge>
                   <h6>Codigo: {{aula.CodigoAula}}</h6>
-                  <button small (click)="irAlAula(aula.CodigoAula,datosUsuario[2],datosUsuario[3])" color="azul" ion-button item-end>Acceder</button>
+                  <button outline small (click)="irAlAula(aula.CodigoAula,datosUsuario[2],datosUsuario[3])" color="azul" ion-button item-end>Acceder</button>
                 </ion-item>   
               </ion-card>
 

@@ -40,6 +40,7 @@ export class AulaPage {
     this.perfilUsuario = this.navParams.get("PerfilUsuario");
     this.mensajesRecuperados = this.aulas.recuperarMensajes(this.codigoAula);
     this.archivosRecuperados = this.aulas.recuperarArchivos(this.codigoAula);
+    this.usuariosRecuperados = this.aulas.recuperarUsuarios(this.codigoAula);
   }
 
   ionViewDidLoad() {    

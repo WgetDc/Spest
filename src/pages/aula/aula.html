@@ -28,6 +28,23 @@
     <div [ngSwitch]="AulaSegment">
         <ion-list *ngSwitchCase="'Mensajes'">
 
+            <div>
+                <ion-card>
+                    <ion-item>
+                      <ion-avatar item-start>
+                        <img src="../../assets/imgs/ogro.gif">
+                      </ion-avatar>
+                      <h2>Ogrobot</h2>
+                     </ion-item>
+                    
+                    <ion-card-content>
+                      <p>Hola... emmhh, no soy bueno para esta estas cosas... Pero... emmmh oorgh... Este es el chat
+                        de tu aula... Solo te pido que hables con respeto... Recuerda que siempre te estoy vigilando... Como muy Ogrobot que soy ♥
+                      </p>                
+                    </ion-card-content>      
+                  </ion-card>
+                </div>
+
           <div>
             <ion-card *ngFor="let mensaje of mensajesRecuperados | async">
                 <ion-item>
@@ -91,7 +108,7 @@
         </ion-list>
 
         <ion-list padding *ngSwitchCase="'Estadisticas'">
-          
+          lamo
                 <div *ngFor="let user of usuariosRecuperados | async">
                     <ion-card>
                         <ion-item>
